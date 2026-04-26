@@ -1,0 +1,81 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "name": "Pulihora",
+      "type": "Veg",
+      "calories": 350,
+      "protein": "6g",
+      "fat": "12g",
+      "carbs": "55g",
+      "ingredients": ["Rice", "Tamarind Pulp", "Peanuts", "Green Chillies", "Curry Leaves", "Turmeric", "Mustard Seeds"],
+      "instructions": "Cook rice. Prepare tamarind paste with tempering of peanuts and spices. Mix thoroughly."
+    },
+    {
+      "id": 2,
+      "name": "Gongura Mutton",
+      "type": "Non-Veg",
+      "calories": 450,
+      "protein": "32g",
+      "fat": "28g",
+      "carbs": "12g",
+      "ingredients": ["Mutton", "Gongura Leaves", "Onions", "Guntur Chillies", "Ginger Garlic Paste"],
+      "instructions": "Sauté gongura leaves into a paste. Cook mutton with spices. Combine and simmer until oil separates."
+    },
+    {
+      "id": 3,
+      "name": "Natu Kodi Pulusu",
+      "type": "Non-Veg",
+      "calories": 520,
+      "protein": "38g",
+      "fat": "30g",
+      "carbs": "8g",
+      "ingredients": ["Country Chicken", "Poppy Seeds Paste", "Coconut Milk", "Red Chilli Powder", "Garam Masala"],
+      "instructions": "Marinate chicken. Fry onions and spices. Add chicken and poppy seed paste. Cook until gravy thickens."
+    },
+    {
+      "id": 4,
+      "name": "Gutti Vankaya",
+      "type": "Veg",
+      "calories": 280,
+      "protein": "5g",
+      "fat": "18g",
+      "carbs": "22g",
+      "ingredients": ["Small Brinjals", "Peanuts", "Sesame Seeds", "Dry Coconut", "Onion", "Tamarind"],
+      "instructions": "Stuff slit brinjals with a roasted peanut-sesame paste. Sauté in oil until tender."
+    },
+    {
+      "id": 5,
+      "name": "Andhra Pappu (Mamidi Kaya)",
+      "type": "Veg",
+      "calories": 210,
+      "protein": "12g",
+      "fat": "4g",
+      "carbs": "32g",
+      "ingredients": ["Toor Dal", "Raw Mango", "Green Chillies", "Garlic", "Mustard Seeds"],
+      "instructions": "Pressure cook dal with mango pieces. Add a strong garlic and red chilli tempering."
+    },
+    {
+      "id": 6,
+      "name": "Prawns Iguru",
+      "type": "Non-Veg",
+      "calories": 310,
+      "protein": "25g",
+      "fat": "15g",
+      "carbs": "5g",
+      "ingredients": ["Prawns", "Curry Leaves", "Onions", "Cashew Paste", "Green Chillies"],
+      "instructions": "Fry prawns with onions and curry leaves until water evaporates. Add cashew paste for richness."
+    },
+    {
+      "id": 7,
+      "name": "Tomato Pachadi",
+      "type": "Veg",
+      "calories": 90,
+      "protein": "2g",
+      "fat": "6g",
+      "carbs": "8g",
+      "ingredients": ["Tomatoes", "Dry Red Chillies", "Urad Dal", "Tamarind", "Cumin Seeds"],
+      "instructions": "Sauté ingredients and grind into a coarse paste. Finish with a mustard and curry leaf tadka."
+    }
+  ]
+}
