@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andhra Spice | CSE Final Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary: #d32f2f; /* Traditional Andhra Red */
+            --secondary: #ffc107; /* Turmeric Yellow */
+            --dark: #1a1a1a;
+            --glass: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            color: white;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+            color: var(--secondary);
+            text-shadow: 2px 4px 15px rgba(0,0,0,0.5);
+        }
+
+        header p {
+            font-weight: 300;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .search-section {
+            width: 90%;
+            max-width: 700px;
+            margin-bottom: 40px;
+            display: flex;
+            background: white;
+            padding: 8px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        input {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            outline: none;
+            font-size: 1.1rem;
+            border-radius: 50px 0 0 50px;
+        }
+
+        .search-btn {
+            padding: 15px 35px;
+            border-radius: 50px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.4s ease;
+        }
+
+        .search-btn:hover {
+            background: #b71c1c;
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
+        }
+
+        /* Recipe Result Card */
+        #recipe-container {
+            width: 90%;
+            max-width: 850px;
+            margin-bottom: 60px;
+        }
+
+        .recipe-card {
+            background: var(--glass);
+            padding: 45px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            display: none; /* Hidden until search */
+            animation: slideUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            border-top: 8px solid var(--primary);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .recipe-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .recipe-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+        }
+
+        .badge {
+            padding: 5px 15px;
+            background: #eee;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Nutrition Stats */
+        .nutrition-panel {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .stat-box {
+            background: #fff;
+            padding: 15px;
+            text-align: center;
+            border-radius: 15px;
+            border: 1px solid #eee;
+            transition: 0.3s;
+        }
+
+        .stat-box:hover {
+            border-color: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .stat-box span {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .stat-box label {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Content Sections */
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        .content-section h3 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+            border-left: 4px solid var(--secondary);
+            padding-left: 10px;
+        }
+
+        ul, ol {
+            padding-left: 20px;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Footer Buttons */
+        .actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .btn-pdf {
+            flex: 1;
+            padding: 18px;
+            border: none;
+            background: var(--dark);
+            color: white;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-pdf:hover {
+            background: #000;
+            transform: translateY(-2px);
+        }
+
+        #loading {
+            color: var(--secondary);
+            display: none;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .error-msg {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Andhra Spice</h1>
+        <p>Diploma Final Year Project | CSE Branch</p>
+    </header>
+
+    <div class="search-section">
+        <input type="text" id="recipeSearch" placeholder="Type an Andhra dish (e.g. Pulihora)...">
+        <button class="search-btn" onclick="fetchRecipe()">Search Dish</button>
+    </div>
+
+    <div id="loading">Connecting to GitHub Backend...</div>
+    <div id="error-box" class="error-msg">Dish not found in our Andhra Database.</div>
+
+    <div id="recipe-container">
+        <div class="recipe-card" id="mainCard">
+            <div id="pdf-content">
+                <div class="recipe-header">
+                    <h2 id="title">Dish Name</h2>
+                    <span class="badge" id="type">Type</span>
+                </div>
+
+                <div class="nutrition-panel">
+                    <div class="stat-box"><span id="cal">0</span><label>Calories</label></div>
+                    <div class="stat-box"><span id="pro">0g</span><label>Protein</label></div>
+                    <div class="stat-box"><span id="fat">0g</span><label>Fat</label></div>
+                    <div class="stat-box"><span id="carb">0g</span><label>Carbs</label></div>
+                </div>
+
+                <div class="content-section">
+                    <h3>Ingredients Needed</h3>
+                    <ul id="ingredientsList"></ul>
+                </div>
+
+                <div class="content-section">
+                    <h3>Preparation Method</h3>
+                    <ol id="instructionsList"></ol>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn-pdf" onclick="generatePDF()">
+                    <span>Download Recipe PDF</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchRecipe() {
+            const query = document.getElementById('recipeSearch').value.trim().toLowerCase();
+            const card = document.getElementById('mainCard');
+            const errorBox = document.getElementById('error-box');
+            const loader = document.getElementById('loading');
+
+            if (!query) return;
+
+            // 1. Show loader, hide others
+            loader.style.display = 'block';
+            card.style.display = 'none';
+            errorBox.style.display = 'none';
+
+            // 2. YOUR GITHUB BACKEND URL
+            // After you upload db.json, click "Raw" and paste that link here!
+            const GITHUB_BACKEND_URL = "https://raw.githubusercontent.com/uday13350/db.json/refs/heads/main/db.json";
+
+            try {
+                const response = await fetch(GITHUB_BACKEND_URL);
+                const data = await response.json();
+                
+                // Find the dish in the JSON array
+                const dish = data.recipes.find(r => r.name.toLowerCase().includes(query));
+
+                if (dish) {
+                    // Update UI
+                    document.getElementById('title').innerText = dish.name;
+                    document.getElementById('type').innerText = dish.type;
+                    document.getElementById('cal').innerText = dish.calories;
+                    document.getElementById('pro').innerText = dish.protein;
+                    document.getElementById('fat').innerText = dish.fat;
+                    document.getElementById('carb').innerText = dish.carbs;
+
+                    // Update Lists
+                    const ingList = document.getElementById('ingredientsList');
+                    ingList.innerHTML = dish.ingredients.map(i => `<li>${i}</li>`).join('');
+
+                    const insList = document.getElementById('instructionsList');
+                    // If your JSON has an array for instructions, use map. If it's a string, use this:
+                    insList.innerHTML = Array.isArray(dish.instructions) 
+                        ? dish.instructions.map(step => `<li>${step}</li>`).join('')
+                        : `<li>${dish.instructions}</li>`;
+
+                    // Show Card
+                    loader.style.display = 'none';
+                    card.style.display = 'block';
+                } else {
+                    loader.style.display = 'none';
+                    errorBox.style.display = 'block';
+                }
+            } catch (err) {
+                console.error("Fetch Error:", err);
+                loader.style.display = 'none';
+                alert("Error connecting to backend. Check your GitHub URL.");
+            }
+        }
+
+        function generatePDF() {
+            const element = document.getElementById('pdf-content');
+            const dishName = document.getElementById('title').innerText;
+            
+            const options = {
+                margin: 0.5,
+                filename: dishName + '_Recipe.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            html2pdf().set(options).from(element).save();
+        }
+    </script>
+</body>
+</html>
